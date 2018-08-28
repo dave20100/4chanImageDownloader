@@ -5,14 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_4chandownloader"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Background="BlanchedAlmond">
-        <Button Name="startdown" Content="Download" HorizontalAlignment="Left" Margin="325,128,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <TextBox Background="Azure" Name="page" HorizontalAlignment="Left" Height="28" Margin="83,29,0,0" TextWrapping="Wrap" Text="ThreadLink" VerticalAlignment="Top" Width="578"/>
-        <ProgressBar Name="pb" HorizontalAlignment="Left" Height="26" Margin="83,197,0,0" VerticalAlignment="Top" Width="578"/>
-        <ProgressBar Name="pbpics" HorizontalAlignment="Left" Height="24" Margin="83,270,0,0" VerticalAlignment="Top" Width="578"/>
-        <TextBlock Background="Azure" Name="FilePath" HorizontalAlignment="Left" Margin="83,62,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="32" Width="498"/>
-        <Button Content="FilePath" HorizontalAlignment="Left" Margin="586,62,0,0" VerticalAlignment="Top" Width="75" Height="32" Click="Button_Click_1"/>
+        WindowStartupLocation="CenterScreen"
+        Title="4chan Image Downloader" Height="450" Width="800"
+        ResizeMode="NoResize">
+    <Grid Background="FloralWhite">
+        <Button Name="startdown" Content="Download" HorizontalAlignment="Left" Margin="348,164,0,0" VerticalAlignment="Top" Width="59" Click="Button_Click" Height="32"/>
+        <TextBox Background="LightSteelBlue" Name="page" HorizontalAlignment="Left" Height="28" Margin="106,65,0,0" TextWrapping="Wrap" Text="Link do threadu" VerticalAlignment="Top" Width="578"/>
+        <ProgressBar Name="pb" Background="LightBlue" HorizontalAlignment="Left" Height="26" Margin="106,249,0,0" VerticalAlignment="Top" Width="578"/>
+        <ProgressBar Name="pbpics" Background="LightBlue" HorizontalAlignment="Left" Height="24" Margin="106,306,0,0" VerticalAlignment="Top" Width="578"/>
+        <TextBlock Background="LightSteelBlue" Name="FilePath" HorizontalAlignment="Left" Margin="106,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="32" Width="498"/>
+        <Button Content="FilePath" HorizontalAlignment="Left" Margin="609,98,0,0" VerticalAlignment="Top" Width="75" Height="32" Click="Button_Click_1"/>
+        <TextBlock Name="progressText" HorizontalAlignment="Left" Margin="348,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" Width="59" TextAlignment="Center"/>
 
     </Grid>
 </Window>

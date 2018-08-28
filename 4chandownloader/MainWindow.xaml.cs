@@ -52,22 +52,28 @@ namespace _4chandownloader
             }
             
             photos = GetLinks(pageString);
-
+            pbpics.Value = 0;
+            pbpics.Maximum = photos.Count;
+            
             int count = 1;
             string mainFolderPath = createThreadFolderPath();
             foreach (string link in photos)
             {
                 WebClient wctopics = new WebClient();
-                wctopics.DownloadProgressChanged += Wctopics_DownloadProgressChanged;
-                wctopics.DownloadFileAsync(new Uri("http://" + link), mainFolderPath + "\\File" + count + link.Substring(link.IndexOf(".", link.Length - 6)));
+                wctopics.DownloadFileCompleted += Wctopics_DownloadFileCompleted; ;
+                wctopics.DownloadFileAsync(new Uri("http://" + link), mainFolderPath + "\\File" + count + link.Substring(link.LastIndexOf(".")));
                 count++;
             }
-            startdown.IsEnabled = true;
         }
 
-        private void Wctopics_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void Wctopics_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            pbpics.Value = e.ProgressPercentage;
+            pbpics.Value += 1;
+            progressText.Text = pbpics.Value + "\\" + pbpics.Maximum;
+            if (pbpics.Value == pbpics.Maximum)
+            {
+                startdown.IsEnabled = true;
+            }
         }
 
         private void Wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
