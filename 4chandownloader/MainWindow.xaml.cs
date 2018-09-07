@@ -43,8 +43,10 @@ namespace _4chandownloader
             startdown.IsEnabled = false;
             try
             {
-                wc.DownloadProgressChanged += Wc_DownloadProgressChanged; ;
+                connectingtoSiteText.Text = "Connecting to thread";
+                wc.DownloadProgressChanged += Wc_DownloadProgressChanged; 
                 pageString = await wc.DownloadStringTaskAsync(page.Text);
+                connectingtoSiteText.Text = "Connected";
             }
             catch (Exception exc)
             {
@@ -73,6 +75,8 @@ namespace _4chandownloader
             if (pbpics.Value == pbpics.Maximum)
             {
                 startdown.IsEnabled = true;
+                progressText.Text = "";
+                connectingtoSiteText.Text = "Thread Downloaded";
             }
         }
 

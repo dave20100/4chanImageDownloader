@@ -16,6 +16,7 @@
         <TextBlock Background="LightSteelBlue" Name="FilePath" HorizontalAlignment="Left" Margin="106,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="32" Width="498"/>
         <Button Content="FilePath" HorizontalAlignment="Left" Margin="609,98,0,0" VerticalAlignment="Top" Width="75" Height="32" Click="Button_Click_1"/>
         <TextBlock Name="progressText" HorizontalAlignment="Left" Margin="348,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" Width="59" TextAlignment="Center"/>
+        <TextBlock Name="connectingtoSiteText" HorizontalAlignment="Left" Margin="283,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="197" TextAlignment="Center"/>
 
     </Grid>
 </Window>
