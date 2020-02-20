@@ -41,6 +41,10 @@ namespace _4chandownloader
             {
 
             }
+            else
+            {
+                startdown.IsEnabled = true;
+            }
         }
 
         private async void DownloadThread(string threadURL)
@@ -52,8 +56,9 @@ namespace _4chandownloader
             pbThread.Value = 0;
             pbThread.Maximum = photos.Count;
 
+            string threadTitle = ExtractTitleFromSource(threadString);
+            string mainFolderPath = createThreadFolderPath(threadTitle);
             int count = 1;
-            string mainFolderPath = createThreadFolderPath();
             foreach (string link in photos)
             {
                 WebClient wctopics = new WebClient();
@@ -61,6 +66,15 @@ namespace _4chandownloader
                 wctopics.DownloadFileAsync(new Uri("http://" + link), mainFolderPath + "\\File" + count + link.Substring(link.LastIndexOf(".")));
                 count++;
             }
+        }
+
+        private string ExtractTitleFromSource(string threadString) 
+        {
+            threadString = threadString.Substring(threadString.IndexOf("subject\">") + 9, threadString.Length/2);
+            threadString = threadString.Substring(0, threadString.IndexOf("</span>"));
+            System.Windows.MessageBox.Show(threadString);
+
+            return threadString;
         }
 
         private void Wctopics_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
@@ -108,15 +122,14 @@ namespace _4chandownloader
             
         }
 
-        public string createThreadFolderPath()
+        public string createThreadFolderPath(string name = "Thread")
         {
-            int counter = 1;
-            while (Directory.Exists(FilePath.Text + "/Thread" + counter))
+            if (Directory.Exists(FilePath.Text + "/" + name))
             {
-                counter++;
+                Directory.Delete(FilePath.Text + "/" + name, true);
             }
-            Directory.CreateDirectory(FilePath.Text + "/Thread" + counter);
-            return FilePath.Text + "/Thread" + counter;
+            Directory.CreateDirectory(FilePath.Text + "/"+ name);
+            return FilePath.Text + "/" + name;
         }
 
         private async Task<string> GetThreadSourceAsString(string threadURL)
