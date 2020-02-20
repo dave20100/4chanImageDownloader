@@ -39,12 +39,35 @@ namespace _4chandownloader
             }
             else if(pageType == 2)
             {
-
+                DownloadCatalog(page.Text);
             }
             else
             {
                 startdown.IsEnabled = true;
             }
+        }
+
+        private async void DownloadCatalog(string catalogAddress)
+        {
+
+            List<string> catalogs = new List<string>();
+
+            string catalogList = await GetSourceAsString(catalogAddress);
+
+            catalogs = GetCatalogList(catalogList);
+            pbCatalog.Maximum = catalogs.Count;
+            foreach (string link in catalogs)
+            {
+                pbCatalog.Value++;
+                catalogProgressText.Text = $"{pbCatalog.Value} // {pbCatalog.Maximum}";
+                DownloadThread(link);
+            }
+
+        }
+
+        private List<string> GetCatalogList(string catalogList)
+        {
+            throw new NotImplementedException();
         }
 
         private async void DownloadThread(string threadURL)
