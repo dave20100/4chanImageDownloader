@@ -26,7 +26,7 @@ namespace _4chandownloader
         public MainWindow()
         {
             InitializeComponent();
-            FilePath.Text = Directory.GetCurrentDirectory();
+            FilePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         }
 
         private void StartDownloading(object sender, RoutedEventArgs e)
@@ -51,7 +51,7 @@ namespace _4chandownloader
         {
             List<string> photos = new List<string>();
 
-            string threadString = await this.GetThreadSourceAsString(threadURL);
+            string threadString = await GetSourceAsString(threadURL);
             photos = GetLinks(threadString);
             pbThread.Value = 0;
             pbThread.Maximum = photos.Count;
@@ -70,10 +70,15 @@ namespace _4chandownloader
 
         private string ExtractTitleFromSource(string threadString) 
         {
-            threadString = threadString.Substring(threadString.IndexOf("subject\">") + 9, threadString.Length/2);
-            threadString = threadString.Substring(0, threadString.IndexOf("</span>"));
-            System.Windows.MessageBox.Show(threadString);
-
+            try
+            {
+                threadString = threadString.Substring(threadString.IndexOf("subject\">") + 9, threadString.Length/2);
+                threadString = threadString.Substring(0, threadString.IndexOf("</span>"));
+            }
+            catch
+            {
+                threadString = "Thread";
+            }
             return threadString;
         }
 
@@ -88,13 +93,10 @@ namespace _4chandownloader
             }
         }
 
-        private void Wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-        }
 
         public static List<string> GetLinks(string pageString)
         {
-            string editToLink = "";
+            string editToLink;
             List<string> photoLinks = new List<string>();
             int i = 0;
             while ((i = pageString.IndexOf("fileThumb", i)) != -1)
@@ -124,15 +126,21 @@ namespace _4chandownloader
 
         public string createThreadFolderPath(string name = "Thread")
         {
-            if (Directory.Exists(FilePath.Text + "/" + name))
+            string pathToFile = FilePath.Text + "/" + name;
+            int count = 1;
+            if (Directory.Exists(pathToFile))
             {
-                Directory.Delete(FilePath.Text + "/" + name, true);
+                while (Directory.Exists(pathToFile + count)) {
+                    count++;
+                }
+                Directory.CreateDirectory(pathToFile + count);
+                return pathToFile + count;
             }
-            Directory.CreateDirectory(FilePath.Text + "/"+ name);
-            return FilePath.Text + "/" + name;
+            Directory.CreateDirectory(pathToFile);
+            return pathToFile;
         }
 
-        private async Task<string> GetThreadSourceAsString(string threadURL)
+        private async Task<string> GetSourceAsString(string threadURL)
         {
             WebClient wc = new WebClient();
             wc.Headers.Add("User-Agent: Other");
@@ -144,6 +152,7 @@ namespace _4chandownloader
             catch (Exception exc)
             {
                 page.Text = exc.Message;
+                startdown.IsEnabled = true;
             }
             return pageString;
         }

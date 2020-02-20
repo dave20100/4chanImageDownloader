@@ -42,3 +42,17 @@ C:\Users\MIKOWSKI\Desktop\4chanDownloader\4chanImageDownloader\4chandownloader\o
 C:\Users\MIKOWSKI\Desktop\4chanDownloader\4chanImageDownloader\4chandownloader\obj\Debug\4chandownloader.csproj.GenerateResource.cache
 C:\Users\MIKOWSKI\Desktop\4chanDownloader\4chanImageDownloader\4chandownloader\obj\Debug\4chandownloader.exe
 C:\Users\MIKOWSKI\Desktop\4chanDownloader\4chanImageDownloader\4chandownloader\obj\Debug\4chandownloader.pdb
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\bin\Debug\4chandownloader.exe.config
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\bin\Debug\4chandownloader.exe
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\bin\Debug\4chandownloader.pdb
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\4chandownloader.csprojAssemblyReference.cache
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\MainWindow.g.cs
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\App.g.cs
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\4chandownloader_MarkupCompile.cache
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\4chandownloader_MarkupCompile.lref
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\MainWindow.baml
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\4chandownloader.g.resources
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\_4chandownloader.Properties.Resources.resources
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\4chandownloader.csproj.GenerateResource.cache
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\4chandownloader.exe
+C:\Users\MIKOWSKI\Desktop\4chanImageDownloader\4chandownloader\obj\Debug\4chandownloader.pdb
