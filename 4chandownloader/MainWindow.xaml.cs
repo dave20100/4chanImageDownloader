@@ -29,34 +29,29 @@ namespace _4chandownloader
             FilePath.Text = Directory.GetCurrentDirectory();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void StartDownloading(object sender, RoutedEventArgs e)
+        {
+            startdown.IsEnabled = false;
+            int pageType = this.CheckLinkType(page.Text);
+            if(pageType == 1)
+            {
+                DownloadThread(page.Text);
+            }
+            else if(pageType == 2)
+            {
+
+            }
+        }
+
+        private async void DownloadThread(string threadURL)
         {
             List<string> photos = new List<string>();
-            WebClient wc = new WebClient();
-            wc.Headers.Add("User-Agent: Other");
-            string pageString = "";
-            if (!page.Text.Contains("boards.4chan.org") || !page.Text.Contains("thread"))
-            {
-                System.Windows.MessageBox.Show( "This is not a thread link");
-                return;
-            }
-            startdown.IsEnabled = false;
-            try
-            {
-                connectingtoSiteText.Text = "Connecting to thread";
-                wc.DownloadProgressChanged += Wc_DownloadProgressChanged; 
-                pageString = await wc.DownloadStringTaskAsync(page.Text);
-                connectingtoSiteText.Text = "Connected";
-            }
-            catch (Exception exc)
-            {
-                page.Text = exc.Message;
-            }
-            
-            photos = GetLinks(pageString);
-            pbpics.Value = 0;
-            pbpics.Maximum = photos.Count;
-            
+
+            string threadString = await this.GetThreadSourceAsString(threadURL);
+            photos = GetLinks(threadString);
+            pbThread.Value = 0;
+            pbThread.Maximum = photos.Count;
+
             int count = 1;
             string mainFolderPath = createThreadFolderPath();
             foreach (string link in photos)
@@ -70,19 +65,17 @@ namespace _4chandownloader
 
         private void Wctopics_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            pbpics.Value += 1;
-            progressText.Text = pbpics.Value + "\\" + pbpics.Maximum;
-            if (pbpics.Value == pbpics.Maximum)
+            pbThread.Value += 1;
+            progressText.Text = pbThread.Value + "\\" + pbThread.Maximum;
+            if (pbThread.Value == pbThread.Maximum)
             {
                 startdown.IsEnabled = true;
                 progressText.Text = "";
-                connectingtoSiteText.Text = "Thread Downloaded";
             }
         }
 
         private void Wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            pb.Value = e.ProgressPercentage;
         }
 
         public static List<string> GetLinks(string pageString)
@@ -101,7 +94,7 @@ namespace _4chandownloader
             return photoLinks;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void SetFilePath(object sender, RoutedEventArgs e)
         {
             using (var dialog = new FolderBrowserDialog())
             {
@@ -125,5 +118,38 @@ namespace _4chandownloader
             Directory.CreateDirectory(FilePath.Text + "/Thread" + counter);
             return FilePath.Text + "/Thread" + counter;
         }
+
+        private async Task<string> GetThreadSourceAsString(string threadURL)
+        {
+            WebClient wc = new WebClient();
+            wc.Headers.Add("User-Agent: Other");
+            string pageString = "";
+            try
+            {
+                pageString = await wc.DownloadStringTaskAsync(threadURL);
+            }
+            catch (Exception exc)
+            {
+                page.Text = exc.Message;
+            }
+            return pageString;
+        }
+
+        private int CheckLinkType(string pageURL)
+        {
+            if (pageURL.Contains("boards.4chan.org") || pageURL.Contains("thread"))
+            {
+                return 1;
+            }
+            else if(pageURL.Contains("boards.4chan.org") || pageURL.Contains("catalog"))
+            {
+                return 2;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("This is not a thread link");
+                return -1;
+            }
+        }
     }
-    }
+}
